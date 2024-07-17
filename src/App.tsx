@@ -1,25 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import styled from 'styled-components';
 
-function App() {
+import './App.css';
+import ColorPicker from './ColorPicker';
+import Header from './Header';
+import ConnectButton from './ConnectButton';
+
+import { bits_to_arduino_string } from './brains/arduinoUtils';
+import { options } from './brains/colors';
+import { useTayframe } from './brains/useTayframe';
+
+const red = [1, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1];
+const blue = [1, 0, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1];
+const yellow = [1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1];
+
+const AppContainer = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+`;
+
+const App = () => {
+  const [color, setColor] = useState();
+  const { isConnected, isConnecting, connect, write } = useTayframe();
+
+  const hasBluetooth = !!navigator.bluetooth;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppContainer>
+      <Header />
+      {isConnected
+        ? <ColorPicker colors={options['solid']} selectedColor={color} selectColor={(c) => {}} />
+        : <ConnectButton hasBluetooth={hasBluetooth} isConnecting={isConnecting} onClick={connect} />}
+    </AppContainer>
   );
 }
 
