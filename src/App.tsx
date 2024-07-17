@@ -6,13 +6,13 @@ import ColorPicker from './ColorPicker';
 import Header from './Header';
 import ConnectButton from './ConnectButton';
 
-import { bits_to_arduino_string } from './brains/arduinoUtils';
+// import { bits_to_arduino_string } from './brains/arduinoUtils';
 import { options } from './brains/colors';
 import { useTayframe } from './brains/useTayframe';
 
-const red = [1, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1];
-const blue = [1, 0, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1];
-const yellow = [1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1];
+// const red = [1, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1];
+// const blue = [1, 0, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1];
+// const yellow = [1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1];
 
 const AppContainer = styled.div`
   height: 100%;
@@ -21,8 +21,8 @@ const AppContainer = styled.div`
 `;
 
 const App = () => {
-  const [color, setColor] = useState();
-  const { isConnected, isConnecting, connect, write } = useTayframe();
+  const [color] = useState();
+  const { isConnected, isConnecting, connect } = useTayframe();
 
   const hasBluetooth = !!navigator.bluetooth;
 
