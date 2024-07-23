@@ -19,8 +19,11 @@ const AppContainer = styled.div`
 
 const App = () => {
   const [color] = useState();
-  let { isConnected, isConnecting, connect, write } = useTayframe();
-  // isConnected = true;
+  const [logs, setLogs] = useState<string[]>([]);
+
+  const addLog = (log: string) => setLogs((logs) => [...logs, `${log}\n`]);
+
+  let { isConnected, isConnecting, connect, write } = useTayframe(addLog);
 
   const sendNewColor = (color: ColorOption) => {
     console.log(`Sending new color: ${color.hex}`);
@@ -36,6 +39,7 @@ const App = () => {
       {!isConnected
         ? <ConnectPage isConnecting={isConnecting} connect={connect} />
         : <ColorPicker selectedColor={color} selectColor={sendNewColor} />}
+      {logs}
     </AppContainer>
   );
 }

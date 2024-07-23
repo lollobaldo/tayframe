@@ -5,7 +5,7 @@ const BLE_SERVER_NAME = "TayFrame";
 const SERVICE_UUID = "4fafc201-1fb5-459e-8fcc-c5c9c331914b";
 const CHARACTERISTIC_UUID = "beb5483e-36e1-4688-b7f5-ea07361b26a8";
 
-export const useTayframe = (): any => {
+export const useTayframe = (log: any): any => {
   const [isConnected, setIsConnected] = useState(false);
   const [isConnecting, setIsConnecting] = useState(false);
   const [dataCharacteristic, setDataCharacteristic] = useState<BluetoothRemoteGATTCharacteristic | null>();
@@ -34,6 +34,7 @@ export const useTayframe = (): any => {
       })
       .catch(error => {
         setIsConnecting(false);
+        log(`${error}`)
         console.error(error);
       });
   };
@@ -41,9 +42,11 @@ export const useTayframe = (): any => {
   const write = async (data: any) => {
     console.assert(data.length > 3)
     console.log(`Writing data: hex: ${bytesToHexString(data.slice(0, 3))}, data: ${data.slice(3)}`);
+    log(`Writing data: hex: ${bytesToHexString(data.slice(0, 3))}`);
     await dataCharacteristic?.writeValueWithoutResponse(
       new Uint8Array(data)
     );
+    log('done');
   };
 
   return { isConnected, isConnecting, connect, write };

@@ -33,9 +33,6 @@ const ColorPicker = ({ selectedColor, selectColor }: ColorPickerProps) => {
   const colors = options['solid'];
   return (
     <>
-      {/* <button onClick={() => write(bits_to_arduino_string(red))} disabled={!isConnected}>RED</button>
-      <button onClick={() => write(bits_to_arduino_string(blue))} disabled={!isConnected}>BLUE</button>
-      <button onClick={() => write(bits_to_arduino_string(yellow))} disabled={!isConnected}>YELLOW</button> */}
       <ColorsContainer>
         {colors.map((color) =>
           <Color key={color.hex} color={color.hex} onClick={() => selectColor(color)} selectedColor={selectedColor?.hex} />)}
