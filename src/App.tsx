@@ -4,15 +4,12 @@ import styled from 'styled-components';
 import './App.css';
 import ColorPicker from './ColorPicker';
 import Header from './Header';
-import ConnectButton from './ConnectButton';
 
-// import { bits_to_arduino_string } from './brains/arduinoUtils';
-import { options } from './brains/colors';
+import { ColorOption } from './brains/colors';
 import { useTayframe } from './brains/useTayframe';
-
-// const red = [1, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1];
-// const blue = [1, 0, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1];
-// const yellow = [1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1];
+import ConnectPage from './ConnectPage';
+import { hexToBytes } from './brains/utils';
+import { bits_to_arduino_string } from './brains/arduinoUtils';
 
 const AppContainer = styled.div`
   height: 100%;
@@ -22,16 +19,23 @@ const AppContainer = styled.div`
 
 const App = () => {
   const [color] = useState();
-  const { isConnected, isConnecting, connect } = useTayframe();
+  let { isConnected, isConnecting, connect, write } = useTayframe();
+  // isConnected = true;
 
-  const hasBluetooth = !!navigator.bluetooth;
+  const sendNewColor = (color: ColorOption) => {
+    console.log(`Sending new color: ${color.hex}`);
+    // Remove leading '#' and convert to RGB bytes
+    const hexBytes = hexToBytes(color.hex.substring(1));
+    const commandData = bits_to_arduino_string(color.data);
+    write([...hexBytes, ...commandData]);
+  };
 
   return (
     <AppContainer>
       <Header />
-      {isConnected
-        ? <ColorPicker colors={options['solid']} selectedColor={color} selectColor={(c) => {}} />
-        : <ConnectButton hasBluetooth={hasBluetooth} isConnecting={isConnecting} onClick={connect} />}
+      {!isConnected
+        ? <ConnectPage isConnecting={isConnecting} connect={connect} />
+        : <ColorPicker selectedColor={color} selectColor={sendNewColor} />}
     </AppContainer>
   );
 }

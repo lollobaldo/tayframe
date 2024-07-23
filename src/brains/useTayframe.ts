@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { bytesToHexString } from './utils';
 
 const BLE_SERVER_NAME = "TayFrame";
 const SERVICE_UUID = "4fafc201-1fb5-459e-8fcc-c5c9c331914b";
@@ -39,7 +40,7 @@ export const useTayframe = (): any => {
 
   const write = async (data: any) => {
     console.assert(data.length > 3)
-    console.log(`Writing data: hex: ${data.slice(0, 2)}, data: ${data.slice(2)}`);
+    console.log(`Writing data: hex: ${bytesToHexString(data.slice(0, 3))}, data: ${data.slice(3)}`);
     await dataCharacteristic?.writeValueWithoutResponse(
       new Uint8Array(data)
     );

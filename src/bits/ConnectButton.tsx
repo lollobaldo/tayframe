@@ -16,15 +16,6 @@ const StyledButton = styled.button<StyledButtonProps>`
   font-size: xx-large;
 `;
 
-const StyledContainer = styled.div`
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  text-align: center;
-`;
-
 const colors = {
   blue: { bg: '#a2bfff', border: '#417cfc', text: '#ffffff' },
   green: { bg: '#bfd9be', border: '#83b67f', text: '#ffffff' },
@@ -32,23 +23,19 @@ const colors = {
 };
 
 type ConnectButtonProps = {
-  hasBluetooth: boolean;
   isConnecting: boolean;
+  disabled: boolean;
   onClick: () => void;
 };
 
-const ConnectButton = ({ hasBluetooth, isConnecting, onClick }: ConnectButtonProps) => {
+const ConnectButton = ({ isConnecting, disabled, onClick }: ConnectButtonProps) => {
   const buttonType = isConnecting ? RippleButton : PingButton;
-  const buttonColor = !hasBluetooth ? colors.red : isConnecting ? colors.green : colors.blue;
+  const buttonColor = disabled ? colors.red : isConnecting ? colors.green : colors.blue;
   return (
-    <StyledContainer>
-      <h1>ARE YOU READY<br />FOR IT?</h1>
-      {!hasBluetooth && 'It looks like your device does not support bluetooth on websites...'}
-      <StyledButton as={buttonType} colors={buttonColor}
-        disabled={!hasBluetooth} onClick={onClick}>
-          CONNECT
-      </StyledButton>
-    </StyledContainer>
+    <StyledButton as={buttonType} colors={buttonColor}
+      disabled={disabled} onClick={onClick}>
+        CONNECT
+    </StyledButton>
   );
 };
 

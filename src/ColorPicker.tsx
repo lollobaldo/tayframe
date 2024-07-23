@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { ColorOption } from './brains/colors';
+import { ColorOption, options } from './brains/colors';
 
 type ColorProps = {
   color: string;
@@ -24,20 +24,21 @@ const ColorsContainer = styled.div`
 `;
 
 type ColorPickerProps = {
-  colors: ColorOption[];
   selectedColor: ColorOption | undefined;
   selectColor: (color: ColorOption) => void;
 };
 
 
-const ColorPicker = ({ colors, selectedColor, selectColor }: ColorPickerProps) => {
+const ColorPicker = ({ selectedColor, selectColor }: ColorPickerProps) => {
+  const colors = options['solid'];
   return (
     <>
       {/* <button onClick={() => write(bits_to_arduino_string(red))} disabled={!isConnected}>RED</button>
       <button onClick={() => write(bits_to_arduino_string(blue))} disabled={!isConnected}>BLUE</button>
       <button onClick={() => write(bits_to_arduino_string(yellow))} disabled={!isConnected}>YELLOW</button> */}
       <ColorsContainer>
-        {colors.map(({ hex }) => <Color key={hex} color={hex} selectedColor={selectedColor?.hex} />)}
+        {colors.map((color) =>
+          <Color key={color.hex} color={color.hex} onClick={() => selectColor(color)} selectedColor={selectedColor?.hex} />)}
       </ColorsContainer>
     </>
   );
