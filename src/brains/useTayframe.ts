@@ -43,7 +43,7 @@ export const useTayframe = (log: any): any => {
     console.assert(data.length > 3)
     console.log(`Writing data: hex: ${bytesToHexString(data.slice(0, 3))}, data: ${data.slice(3)}`);
     log(`Writing data: hex: ${bytesToHexString(data.slice(0, 3))}`);
-    await dataCharacteristic?.writeValueWithoutResponse(
+    await dataCharacteristic?.writeValueWithResponse(
       new Uint8Array(data)
     );
     log('done');
