@@ -1,14 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { ColorOption, options } from './brains/colors';
+import { Mode, Color, options } from './brains/colors';
+import { Chance, CommandSingleColorExt, Time } from './brains/pixmob';
 
 type ColorProps = {
   color: string;
   selectedColor: string | undefined;
 };
 
-const Color = styled.div<ColorProps>`
+const ColorOption = styled.div<ColorProps>`
     background-color: ${({ color }) => color};
     width: 100px;
     height: 60px;
@@ -24,18 +25,29 @@ const ColorsContainer = styled.div`
 `;
 
 type ColorPickerProps = {
-  selectedColor: ColorOption | undefined;
-  selectColor: (color: ColorOption) => void;
+  selectedColor: Color | undefined;
+  selectColor: (mode: Mode, color: Color) => void;
 };
-
 
 const ColorPicker = ({ selectedColor, selectColor }: ColorPickerProps) => {
   const colors = options['solid'];
+  const color = new CommandSingleColorExt({
+    red: 255,
+    green: 255,
+    blue: 0,
+    chance: Chance.CHANCE_100_PCT,
+    attack: Time.TIME_960_MS,
+    sustain: Time.TIME_960_MS,
+    release: Time.TIME_960_MS,
+    enableRepeat: true,
+  });
+  console.log(color.encode());
   return (
     <>
       <ColorsContainer>
         {colors.map((color) =>
-          <Color key={color.hex} color={color.hex} onClick={() => selectColor(color)} selectedColor={selectedColor?.hex} />)}
+          <ColorOption key={color.hex} color={color.hex} selectedColor={selectedColor?.hex}
+            onClick={() => selectColor(Mode.ONCE, color)} />)}
       </ColorsContainer>
     </>
   );

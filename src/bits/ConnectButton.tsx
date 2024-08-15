@@ -13,7 +13,7 @@ const StyledButton = styled.button<StyledButtonProps>`
   background: ${({ colors }) => colors.bg};
   color: ${({ colors }) => colors.text};
   border: 2px solid ${({ colors }) => colors.border};
-  font-size: xx-large;
+  font-size: x-large;
 `;
 
 const colors = {
@@ -24,17 +24,17 @@ const colors = {
 
 type ConnectButtonProps = {
   isConnecting: boolean;
-  disabled: boolean;
-  onClick: () => void;
+  disabled?: boolean;
+  onClick?: () => void;
 };
 
-const ConnectButton = ({ isConnecting, disabled, onClick }: ConnectButtonProps) => {
+const ConnectButton = ({ isConnecting, disabled = false, onClick = () => {} }: ConnectButtonProps) => {
   const buttonType = isConnecting ? RippleButton : PingButton;
   const buttonColor = disabled ? colors.red : isConnecting ? colors.green : colors.blue;
   return (
     <StyledButton as={buttonType} colors={buttonColor}
       disabled={disabled} onClick={onClick}>
-        CONNECT
+        CONNECTING
     </StyledButton>
   );
 };

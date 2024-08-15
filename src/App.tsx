@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
+import { Buffer } from 'buffer';
 
 import './App.css';
-import ColorPicker from './ColorPicker';
 import Header from './Header';
 
-import { ColorOption } from './brains/colors';
-import { useTayframe } from './brains/useTayframe';
+import { Mode, Color } from './brains/colors';
+import { useTayframeMqtt } from './brains/useTayframeMqtt';
 import ConnectPage from './ConnectPage';
 import { hexToBytes } from './brains/utils';
 import { bits_to_arduino_string } from './brains/arduinoUtils';
+import ColorPickers from './ColorPickers';
 
 const AppContainer = styled.div`
   height: 100%;
@@ -18,28 +19,23 @@ const AppContainer = styled.div`
 `;
 
 const App = () => {
-  const [color] = useState();
-  const [logs, setLogs] = useState<string[]>([]);
+  const { frameStatus, hasError, sendMqttData } = useTayframeMqtt();
 
-  const addLog = (log: string) => setLogs((logs) => [...logs, `${log}\n`]);
-
-  let { isConnected, isConnecting, connect, write } = useTayframe(addLog);
-
-  const sendNewColor = (color: ColorOption) => {
+  const sendNewColor = (color: Color, mode: Mode) => {
     console.log(`Sending new color: ${color.hex}`);
     // Remove leading '#' and convert to RGB bytes
     const hexBytes = hexToBytes(color.hex.substring(1));
-    const commandData = bits_to_arduino_string(color.data);
-    write([...hexBytes, ...commandData]);
+    const commandData = bits_to_arduino_string([...color.data]);
+    console.log(commandData, color.data);
+    sendMqttData(Buffer.from([mode, ...hexBytes, ...commandData]));
   };
 
   return (
     <AppContainer>
       <Header />
-      {!isConnected
-        ? <ConnectPage isConnecting={isConnecting} connect={connect} />
-        : <ColorPicker selectedColor={color} selectColor={sendNewColor} />}
-      {logs}
+      {frameStatus !== 'CONNECTED' && false
+        ? <ConnectPage hasError={hasError} frameStatus={frameStatus} />
+        : <ColorPickers onChange={sendNewColor} />}
     </AppContainer>
   );
 }
