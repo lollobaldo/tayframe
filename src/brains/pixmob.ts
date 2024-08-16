@@ -1,5 +1,7 @@
 import { normalizeToRange } from "./utils";
 
+export const SPACER = [0, 0, 0, 0, 0, 0, 0];
+
 export enum Chance {
     CHANCE_100_PCT = 0b000,
     CHANCE_88_PCT  = 0b001,

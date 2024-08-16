@@ -8,12 +8,12 @@ import Button from './bits/Button';
 import { ColorPickersProps } from './ColorPickers';
 import Switch from './bits/Switch';
 
-import { Command, CommandSetOffReset, CommandSetRepeatCount, CommandSingleColorExt } from './brains/pixmob';
-import { Mode } from './brains/colors';
+import { CommandSetOffReset, CommandSetRepeatCount, CommandSingleColorExt } from './brains/pixmob';
 
 const Container = styled.div`
   height: 100%;
   padding: 64px;
+  padding-top: 32px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -38,23 +38,15 @@ const Buttons = styled.div`
   gap: 16px;
 `;
 
-const SPACER = [0, 0, 0, 0, 0, 0, 0];
-
-const AdvancedPicker = ({ onChange }: ColorPickersProps) => {
+const AdvancedPicker = ({ sendCommands }: ColorPickersProps) => {
   const [hsva, setHsva] = useState({ h: 214, s: 43, v: 90, a: 1 });
   const [repeat, setRepeat] = useState(false);
-  const [length, setLength] = useState(7);
-  const [fadeIn, setFadeIn] = useState(7);
-  const [fadeOut, setFadeOut] = useState(7);
-
-  const sendCommands = (commands: Command[], hex = '#000000') => {
-    console.log(commands);
-    onChange({ hex, data: commands.flatMap(c => [...c.encode(), ...SPACER]) }, Mode.ONCE);
-  };
+  const [length, setLength] = useState(4);
+  const [fadeIn, setFadeIn] = useState(5);
+  const [fadeOut, setFadeOut] = useState(3);
 
   const reset = () => {
     sendCommands([new CommandSetOffReset({ nreset: true })]);
-    sendCommands([new CommandSetRepeatCount({ repeatCount: 10 })]);
   };
 
   const send = () => {
@@ -86,7 +78,7 @@ const AdvancedPicker = ({ onChange }: ColorPickersProps) => {
         <Slider color={hsva} value={fadeOut} onChange={setFadeOut} />
       </Sliders>
       <Buttons>
-        <Button $color="red" onClick={reset}>Reset</Button>
+        <Button $color="red" onClick={reset}>Stop</Button>
         <Button $color="green" onClick={send}>Send</Button>
       </Buttons>
     </Container>

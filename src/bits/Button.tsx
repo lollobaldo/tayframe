@@ -6,7 +6,7 @@ const colors = {
   red: { bg: '#feccc9', border: '#ff6f68', text: '#555555' },};
 
 const Button = styled.button<{ $color: keyof typeof colors }>`
-  width: 100%;
+  flex-grow: 1;
   padding: 10px;
   height: fit-content;
   border-radius: 100px;

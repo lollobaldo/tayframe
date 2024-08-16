@@ -1,12 +1,28 @@
 import React, { useMemo } from "react";
 import styled from "styled-components";
-import ReactSlider from "react-slider";
+import ReactSlider, { ReactSliderProps } from "react-slider";
 import { HsvaColor, hsvaToHex } from "@uiw/color-convert";
 
-const StyledSlider = styled(ReactSlider)`
+const StyledSlider = styled(ReactSlider)<ReactSliderProps>`
   width: 100%;
-  height: 12px;
-  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.3));
+  height: 8px;
+
+  & .track {
+    top: 0;
+    bottom: 0;
+    background: #ccc;
+    border-radius: 999px;
+    box-shadow: 0 0 2px 0 rgba(10, 10, 10, 0.29);
+  }
+
+  & .mark {
+    top: 2px;
+    transform: translateX(9px);
+    height: 4px;
+    width: 4px;
+    background: #fff;
+    border-radius: 100%;
+  }
 `;
 
 const StyledThumb = styled.div<{ $hex: string }>`
@@ -18,7 +34,7 @@ const StyledThumb = styled.div<{ $hex: string }>`
   text-align: center;
   border-radius: 50%;
   cursor: grab;
-  top: -5px;
+  top: -7px;
   box-shadow: 0 0 2px 0 rgba(10, 10, 10, 0.29);
 
   &:active, &:focus {
@@ -26,22 +42,13 @@ const StyledThumb = styled.div<{ $hex: string }>`
   }
 `;
 
-const StyledTrack = styled.div<any>`
-  top: 0;
-  bottom: 0;
-  background: #ccc;
-  border-radius: 999px;
-`;
-
-const Track = (props: any, state: any) => <StyledTrack {...props} index={state.index} />;
-
-export interface SliderProps {
+export interface SliderProps extends ReactSliderProps {
   color: HsvaColor;
   value: number;
   onChange: (newValue: number) => void;
 }
 
-const Slider = ({ color, value, onChange }: SliderProps) => {
+const Slider = ({ color, value, onChange, ...props }: SliderProps) => {
   const hex = hsvaToHex(color);
 
   const coloredThumb = useMemo(() => ({ key, ...props }: any): JSX.Element => (
@@ -55,8 +62,8 @@ const Slider = ({ color, value, onChange }: SliderProps) => {
       marks={true}
       value={value}
       onChange={(value) => onChange(value as number)}
-      renderTrack={Track}
       renderThumb={coloredThumb}
+      {...props}
     />
   );
 };

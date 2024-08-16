@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import AdvancedPicker from './AdvancedPicker';
-import { Color, Mode } from './brains/colors';
+import { Sliders, Tab, Tabs } from './bits/Tabs';
+import PresetsPicker from './PresetsPicker';
+import { Command } from './brains/pixmob';
+import { HexColor } from '@uiw/color-convert';
 
 const Container = styled.div`
   height: 100%;
@@ -12,13 +15,22 @@ const Container = styled.div`
 `;
 
 export interface ColorPickersProps {
-  onChange: (color: Color, mode: Mode) => void;
+  sendCommands: (commands: Command[], hex?: HexColor | string) => void;
 }
 
-const ColorPickers = ({ onChange }: ColorPickersProps) => {
+const ColorPickers = ({ sendCommands }: ColorPickersProps) => {
+  const [focusedIdx, setFocusedIdx] = useState(1);
+
   return (
     <Container>
-      <AdvancedPicker onChange={onChange} />
+      <Tabs focusedIdx={focusedIdx} onChange={setFocusedIdx}>
+        <Tab title="Presets" />
+        <Tab title="Advanced" />
+      </Tabs>
+      <Sliders focusedIdx={focusedIdx}>
+      <PresetsPicker sendCommands={sendCommands} />
+      <AdvancedPicker sendCommands={sendCommands} />
+      </Sliders>
     </Container>
   );
 };
