@@ -35,7 +35,7 @@ const App = () => {
   return (
     <AppContainer>
       <Header />
-      {frameStatus !== 'CONNECTED' && false
+      {hasError || frameStatus !== 'CONNECTED'
         ? <ConnectPage hasError={hasError} frameStatus={frameStatus} />
         : <ColorPickers sendCommands={sendCommands} />}
     </AppContainer>
