@@ -23,6 +23,10 @@ const StyledSlider = styled(ReactSlider)<ReactSliderProps>`
     background: #fff;
     border-radius: 100%;
   }
+
+  &.disabled .thumb {
+    background: #999 !important;
+  }
 `;
 
 const StyledThumb = styled.div<{ $hex: string }>`

@@ -28,7 +28,7 @@ const App = () => {
     // Remove leading '#' and convert to RGB bytes
     const hexBytes = hexToBytes(hex.substring(1));
     const commandData = bits_to_arduino_string(commands.flatMap(c => [...c.encode(), ...SPACER]))
-    console.log(hex, commandData);
+    console.log(hex, commandData, commands);
     sendMqttData(Buffer.from([Mode.ONCE, ...hexBytes, ...commandData]));
   };
 

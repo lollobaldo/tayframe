@@ -20,10 +20,10 @@ class FadeColors extends Preset {
     });
     const trigger = new CommandSetConfig({
       onStart: true, gstEnable: true,
-      profileIdLo: 0, profileIdHi: this.colors.length, isRandom: false,
+      profileIdLo: 0, profileIdHi: this.colors.length - 1, isRandom: false,
       attack: length,
-      sustain: length,
-      release: Time.TIME_0_MS
+      sustain: Time.TIME_0_MS,
+      release: Time.TIME_0_MS,
     });
     return [...colors, trigger];
   }
