@@ -28,8 +28,8 @@ const ColorPickers = ({ sendCommands }: ColorPickersProps) => {
         <Tab title="Custom" />
       </Tabs>
       <Sliders focusedIdx={focusedIdx}>
-      <PresetsPicker sendCommands={sendCommands} />
-      <AdvancedPicker sendCommands={sendCommands} />
+        <PresetsPicker sendCommands={sendCommands} />
+        <AdvancedPicker sendCommands={sendCommands} />
       </Sliders>
     </Container>
   );

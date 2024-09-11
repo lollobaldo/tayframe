@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 const colors = {
+  transparent: { bg: 'transparent', border: '#555555', text: '#555555' },
   blue: { bg: '#cadafe', border: '#6998fd', text: '#ffffff' },
   green: { bg: '#deebdd', border: '#a1c89e', text: '#ffffff' },
   red: { bg: '#feccc9', border: '#ff6f68', text: '#555555' },};

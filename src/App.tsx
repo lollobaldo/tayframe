@@ -1,18 +1,20 @@
 import React from 'react';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import styled from 'styled-components';
 import { Buffer } from 'buffer';
+import { HexColor } from '@uiw/color-convert';
 
 import './App.css';
+import ColorPickers from './ColorPickers';
+import ConnectPage from './ConnectPage';
 import Header from './Header';
+import Instructions from './Instructions';
 
 import { Mode } from './brains/colors';
 import { useTayframeMqtt } from './brains/useTayframeMqtt';
-import ConnectPage from './ConnectPage';
 import { hexToBytes } from './brains/utils';
 import { bits_to_arduino_string } from './brains/arduinoUtils';
-import ColorPickers from './ColorPickers';
 import { Command, SPACER } from './brains/pixmob';
-import { HexColor } from '@uiw/color-convert';
 
 const AppContainer = styled.div`
   height: 100%;
@@ -35,9 +37,18 @@ const App = () => {
   return (
     <AppContainer>
       <Header />
-      {hasError || frameStatus !== 'CONNECTED'
-        ? <ConnectPage hasError={hasError} frameStatus={frameStatus} />
-        : <ColorPickers sendCommands={sendCommands} />}
+      <BrowserRouter>
+        <Routes>
+          <Route path="/mqtt-error" element={<ConnectPage hasError={hasError} frameStatus={frameStatus} />} />
+          <Route path="/instructions/:stage?" element={<Instructions frameStatus={frameStatus} />} />
+          <Route path="/app" element={<ColorPickers sendCommands={sendCommands} />} />
+          <Route path="*"
+            element={hasError || frameStatus !== 'CONNECTED'
+              ? <Navigate to='/mqtt-error' />
+              : <Navigate to='/app' />}
+          />
+        </Routes>
+      </BrowserRouter>
     </AppContainer>
   );
 }

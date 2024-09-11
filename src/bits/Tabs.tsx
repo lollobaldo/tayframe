@@ -77,6 +77,7 @@ const StyledOuterSliders = styled.div`
 const StyledSliders = styled.div<any>`
   display: flex;
   flex-wrap: nowrap;
+  align-items: start;
   width: 100%;
 
   transform: translateX(${(props) => `${props.offset}%`});

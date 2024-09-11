@@ -1,6 +1,6 @@
 * {
   box-sizing: border-box;
-  font-family: 'Ralphie';
+  /* font-family: 'TayFrame'; */
 }
 
 body {
@@ -12,10 +12,10 @@ body,
 #root,
 .App {
     height: 100%;
-    font-family: 'Ralphie';
+    font-family: 'TayFrame';
 }
 
 @font-face {
-  font-family: 'Ralphie';
+  font-family: 'TayFrame';
   src: local('Ralphie'), url(./res/Ralphie.otf) format('opentype');
 }

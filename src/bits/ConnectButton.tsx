@@ -34,7 +34,7 @@ const ConnectButton = ({ isConnecting, disabled = false, onClick = () => {} }: C
   return (
     <StyledButton as={buttonType} colors={buttonColor}
       disabled={disabled} onClick={onClick}>
-        CONNECTING
+        INSTRUCTIONS
     </StyledButton>
   );
 };
