@@ -9,6 +9,7 @@ import box from '../src/res/box.png';
 import charger from '../src/res/charger.png';
 import pixmob from '../src/res/pixmob.png';
 import pixmobWithCharger from '../src/res/pixmob_with_charger.png';
+import boxBack from '../src/res/box_back.png';
 import frame from '../src/res/frame.png';
 import { FrameStatus } from './brains/useTayframeMqtt';
 
@@ -135,7 +136,7 @@ const PlaceCharger = () => (
     <h1>Chargers</h1>
     <p>Simply place the charger inside. It should fit comfortably.
       Pay attention to the polarity (+/- signs). The charger should match the symbol on the wristband.</p>
-    <p>When you close it, there should be a small gap near the front-right tab. Try to place the cable there.</p>
+    <p>When you close it, there will be a small gap near the front-right tab. Try to place the cable there.</p>
     <img src={pixmobWithCharger} alt="Pixmob" width="100%" />
   </div>
 );
@@ -148,8 +149,9 @@ const Assembly = () => (
       use stickers, and most importantly up to 4 wristbands from the concert!</p>
     <p>There's 2 little lights inside the frame, at the top-right and bottom-left corners.
       Pay attention not to covert at least one of them — but preferably neither!</p>
+    <p>The Frame has a white sheet and a black back side.</p>
     <p>You'll need to cut holes for the chargers in the white sheet. They're about 2mm x 5mm.
-      You can then pass them through a corner of the black sheet at the back.
+      You can then hide the cables in between the white and black sheet.
     </p>
     <p>Have a look at <a
       target="_blank" rel="noreferrer" href="https://www.pinterest.co.uk/baldini0713/tayframe/">this Pinterest board
@@ -161,17 +163,17 @@ const FrameBrain = () => (
   <div>
     <h1>FrameBrain</h1>
     <p>Last assembly step!</p>
-    <p>Once the frame is closed up, wire everything into the FrameBrain.
+    <p>Once the frame is closed up, plug all the wires into the FrameBrain.
       You don't need to plug all of the chargers — just the ones you used!</p>
     <p>The connectors for the wires are color-coded. They should match the color on the box.</p>
-    <img src={pixmobWithCharger} alt="Pixmob" width="100%" />
+    <img src={boxBack} alt="Pixmob" width="100%" />
   </div>
 );
 
 const PlugAndPlay = () => (
   <div>
     <h1>Plug And Play!</h1>
-    <p>Power the FrameBrain with a normal usb-c cable.</p>
+    <p>Turn on your WiFi and power the FrameBrain with a normal usb-c cable.</p>
     <p>It should auto connect to your WiFi, but if not, here is how.</p>
     <p>Whenever you power your TayFrame, if it can't connect to any WiFi it'll start its own.
       This cannot connect it to the internet, but it's just for you to set it up.</p>

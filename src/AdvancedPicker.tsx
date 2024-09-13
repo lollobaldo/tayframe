@@ -8,7 +8,7 @@ import Button from './bits/Button';
 import { ColorPickersProps } from './ColorPickers';
 import Switch from './bits/Switch';
 
-import { Command, CommandSetColor, CommandSetConfig, CommandSetOffReset, CommandSetRepeatCount, CommandSingleColorExt, Time } from './brains/pixmob';
+import { Command, CommandSetColor, CommandSetConfig, CommandSetOffReset, CommandSingleColorExt, Time } from './brains/pixmob';
 
 const Container = styled.div`
   height: 100%;
