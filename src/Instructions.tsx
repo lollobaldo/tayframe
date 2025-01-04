@@ -100,7 +100,7 @@ const Parts = () => (
     <Contents>
       <Content image={frame} text="1x Frame" />
       <hr />
-      <Content image={box} text="1x FrameBrain" />
+      <Content image={box} text="1x FrameBrain (Purple)" />
       <hr />
       <Content image={charger} text="4x Chargers" />
     </Contents>
@@ -121,6 +121,7 @@ const Chargers = () => (
 const OpenPixMob = () => (
   <div>
     <h1>Chargers</h1>
+    <p>I've inserted most of them, but left one out so you can see how it's done.</p>
     <p>You'll need to open your wristband to remove the batteries.</p>
     <p>A knife / pen / screwdriver will help. There's 6 tabs over 3 sides,
       slighly pull them outwards to open the wristband, starting with the front ones. Don't pull too much,
@@ -150,7 +151,7 @@ const Assembly = () => (
     <p>There's 2 little lights inside the frame, at the top-right and bottom-left corners.
       Pay attention not to covert at least one of them — but preferably neither!</p>
     <p>The Frame has a white sheet and a black back side.</p>
-    <p>You'll need to cut holes for the chargers in the white sheet. They're about 2mm x 5mm.
+    <p>You'll need to cut holes to pass the chargers through the white sheet. They're about 2mm x 5mm.
       You can then hide the cables in between the white and black sheet.
     </p>
     <p>Have a look at <a
