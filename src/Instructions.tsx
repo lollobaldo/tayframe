@@ -12,6 +12,7 @@ import pixmobWithCharger from '../src/res/pixmob_with_charger.png';
 import boxBack from '../src/res/box_back.png';
 import frame from '../src/res/frame.png';
 import { FrameStatus } from './brains/useTayframeMqtt';
+import useUser from './brains/useUser';
 
 const Buttons = styled.div`
   flex: 0 0 auto;
@@ -78,14 +79,19 @@ const StyledContent = styled.div`
   }
 `;
 
-const Welcome = () => (
-  <div>
-    <h2>Congratulations</h2>
-    on getting the first ever <b style={{ display: 'contents', fontSize: 'large' }}>TayFrame!</b>
+const Welcome = () => {
+  const { user } = useUser();
+  const userName = user?.userName;
 
-    <h1>ARE YOU READY<br />FOR IT?</h1>
-  </div>
-);
+  return (
+    <div>
+      <h2 style={{textTransform: 'capitalize'}}>Congratulations, {userName},</h2>
+      on getting your first <b style={{ display: 'contents', fontSize: 'large' }}>TayFrame!</b>
+
+      <h1>ARE YOU READY<br />FOR IT?</h1>
+    </div>
+  );
+};
 
 const Content = ({ image, text }: any) => (
   <StyledContent>
@@ -205,6 +211,7 @@ type InstructionsProps = {
 const Instructions = ({ frameStatus }: InstructionsProps) => {
   const navigate = useNavigate();
   const { stage } = useParams();
+
   console.log(stage);
   let stageIdx = stageToIdx(stage || '');
   stageIdx = stageIdx !== -1 ? stageIdx : 0;
